@@ -1,0 +1,175 @@
+   
+G= <T,N,S,P> CRINGE ?????  effectivement blabla
+
+# Ayman gpt :
+# Définition des règles de la grammaire pour le langage draw++
+# Format : Nom_de_Règle ::= Expression
+
+start ::= statement+
+statement ::= assignment | draw_command
+assignment ::= identifier '=' expression
+draw_command ::= 'draw' shape '(' parameters ')'
+shape ::= 'circle' | 'rectangle' | 'line'
+parameters ::= parameter (',' parameter)*
+parameter ::= identifier '=' value
+identifier ::= [a-zA-Z_][a-zA-Z0-9_]*
+value ::= number | string
+number ::= [0-9]+ ('.' [0-9]+)?
+string ::= '"' [^"]* '"'
+
+
+
+-- ex abdel gpt :
+<programme> ::= <instruction> | <instruction> ";" <programme>
+<instruction> ::= <mouvement> | <dessin> | <condition> | <boucle> | <assignation>
+<mouvement> ::= "MOVE" <direction> <valeur>
+<dessin> ::= "DRAW" <forme> <parametres>
+<condition> ::= "IF" <condition_logique> "THEN" <programme> "END"
+<boucle> ::= "FOR" <variable> "IN" <valeur> ".." <valeur> "DO" <programme> "END"
+<assignation> ::= <variable> "=" <valeur>
+<forme> ::= "CIRCLE" | "SQUARE" | "LINE"
+<direction> ::= "UP" | "DOWN" | "LEFT" | "RIGHT"
+<parametres> ::= "(" <valeur> "," <valeur> ")"
+<valeur> ::= <nombre> | <variable>
+<variable> ::= [a-zA-Z][a-zA-Z0-9_]*  // Identificateur
+
+Exemple 1 : Mouvement
+Instruction pour déplacer un curseur de 10 pixels vers la droite : 
+MOVE RIGHT 10;
+
+Exemple 2 : Dessin d’un carré
+Instruction pour dessiner un carré de taille 50 pixels à la position actuelle : 
+DRAW SQUARE (50);
+
+Exemple 3 : Condition et boucle
+Un programme pour déplacer un curseur et dessiner un cercle si une condition est vraie :
+
+FOR i IN 1..5 DO
+    MOVE RIGHT 10;
+    IF i == 3 THEN
+        DRAW CIRCLE (30);
+    END
+END
+
+
+
+ines <3 :
+<programme> ::= { <instruction> ";" } .
+<instruction identifier '=' expression> ::= <draw_instr> | <move_instr> | <set_instr> | <rotate_instr> | <loop_instr> .
+
+
+
+-- Chatgpt Myriam
+
+<programme> ::= <instruction> | <instruction> ";" <programme>
+<instruction> ::= <mouvement> 
+                | <dessin> 
+                | <assignation> 
+                | <condition> 
+                | <boucle> 
+                | <bloc> 
+                | <creation_curseur> 
+                | <apparence_curseur>
+
+<creation_curseur> ::= "CURSOR" <identifiant> "(" <valeur> "," <valeur> ")" [ "VISIBLE" "=" <booleen> ]
+EX: CURSOR myCursor (100, 200) VISIBLE = true;
+
+<mouvement> ::= "MOVE" <identifiant> <direction> <valeur>
+EX: MOVE myCursor UP 50;
+
+<apparence_curseur> ::= "SET" <identifiant> "COLOR" <couleur> | "THICKNESS" <valeur>
+EX: SET myCursor COLOR RED;
+SET myCursor THICKNESS 3;
+
+<dessin> ::= "DRAW" <forme> "(" <identifiant> "," <parametres> ")"
+<forme> ::= "LINE" | "CIRCLE" | "SQUARE" | "ARC"
+<parametres> ::= <valeur> [ "," <valeur> ... ]
+EX: DRAW CIRCLE(myCursor, 50);  // Cercle de rayon 50
+DRAW LINE(myCursor, 100);  // Ligne de longueur 100
+
+<rotation> ::= "ROTATE" <identifiant> <valeur>
+EX: ROTATE myCursor 90;  // Tourne le curseur de 90 degrés
+
+<animation> ::= "ANIMATE" <identifiant> "(" <parametres_animation> ")"
+<parametres_animation> ::= "LOOP" | "ONCE" [ "," <vitesse> ]
+EX:ANIMATE myCursor LOOP, 100ms;
+
+<assignation> ::= <variable> "=" <expression>
+<expression> ::= <valeur> | <expression> <operateur> <expression>
+EX: x = 10;
+y = x + 5;
+
+<bloc> ::= "BEGIN" <programme> "END"
+EX:
+BEGIN
+  MOVE myCursor UP 100;
+  DRAW SQUARE(myCursor, 50);
+END
+
+<condition> ::= "IF" <condition_logique> "THEN" <programme> [ "ELSE" <programme> ] "END"
+<condition_logique> ::= <expression> <operateur_logique> <expression>
+EX:
+IF x > 50 THEN
+  DRAW CIRCLE(myCursor, 30);
+ELSE
+  DRAW SQUARE(myCursor, 50);
+END
+
+<boucle> ::= "FOR" <variable> "IN" <valeur> ".." <valeur> "DO" <programme> "END"
+           | "WHILE" <condition_logique> "DO" <programme> "END"
+EX:
+FOR i IN 1..10 DO
+  DRAW LINE(myCursor, 20);
+  ROTATE myCursor 36;
+END
+
+WHILE x < 100 DO
+  MOVE myCursor UP 10;
+END
+
+<valeur> ::= <nombre> | <variable>
+<variable> ::= [a-zA-Z][a-zA-Z0-9_]*
+<booleen> ::= "true" | "false"
+<couleur> ::= "RED" | "GREEN" | "BLUE" | ...
+<direction> ::= "UP" | "DOWN" | "LEFT" | "RIGHT"
+
+<operateur> ::= "+" | "-" | "*" | "/"
+<operateur_logique> ::= ">" | "<" | ">=" | "<=" | "==" | "!="
+EX:
+CURSOR myCursor (100, 100) VISIBLE = true;
+SET myCursor COLOR RED;
+MOVE myCursor UP 50;
+DRAW CIRCLE(myCursor, 30);
+
+IF x > 10 THEN
+  DRAW SQUARE(myCursor, 40);
+ELSE
+  DRAW LINE(myCursor, 100);
+END
+
+FOR i IN 1..5 DO
+  ROTATE myCursor 72;
+  DRAW LINE(myCursor, 50);
+END
+
+
+
+
+
+eléonore:
+
+-- dessiner une forme:
+
+instruction ::= "dessiner" forme "(" position "," couleur ")"
+forme ::= "cercle" | "carré" | "ligne"
+position ::= "(" nombre "," nombre ")"
+nombre ::= un chiffre (par exemple : 10, 20, 100)
+couleur ::= "rouge" | "bleu" | "noir"
+
+-- condition
+conditionnelle ::= "si" "(" condition ")" "alors" instruction "fin"
+condition ::= variable opérateur variable
+opérateur ::= "==" | "!=" | ">" | "<"
+variable ::= un nom ou un nombre
+-- créer un curseurinstruction ::= "curseur" nom "(" position ")"
+nom ::= un mot (par exemple : main, curseur1)
