@@ -5,6 +5,7 @@ from tkinter import *             # Standard Tkinter library for GUI components.
 from tkinter import messagebox, filedialog  # Specific Tkinter widgets for dialog boxes and file operations.
 import subprocess                 # For running external commands or processes.
 import re                         # Regular expressions for text pattern matching and validation.
+
  
  
 # Create the main application window:
@@ -690,7 +691,15 @@ def run_code():
             correction_area.delete(1.0, END)
 
             # Insert error output into `correction_area`.
-            correction_area.insert(END, result.stderr, "correction")
+            result_errors = []
+            for line in result.stderr.splitlines():
+                match = re.search(r"WARNING", line, re.IGNORECASE)
+                if not match:
+                    result_errors.append(line)
+            for line in result_errors: 
+                correction_area.insert(END, line, "correction")
+                correction_area.insert(END, "\n", "correction")
+
             correction_area.configure(state='disabled')  # Make `correction_area` read-only.
             correction_area.tag_config("correction", foreground="green")  # Set green text color.
 

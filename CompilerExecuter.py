@@ -1,4 +1,5 @@
 from subprocess import *
+import sys
 
 # Function to compile and run a C program.
 #
@@ -32,22 +33,22 @@ def compile_and_run_c():
 
         # Step 1: Construct the compilation command using GCC.
         compile_command = ["gcc", "-o", binary_file] + source_files + ["-lSDL2", "-lm"]
-        print(f"Compilation du code généré ...")
+        print(f"Compilation of the generated code ...")
 
         # Step 2: Execute the compilation command in the specified directory.
         run(compile_command, check=True, capture_output=True, cwd=sdl_directory)        
-        print("Compilation réussie !")
+        print("Compilation successful!")
         
         # Step 3: Run the compiled binary.
-        print(f"Exécution du code ...")
+        print(f"Executing the code ...")
         run(f"./{binary_file}", shell=True, check=True,cwd=sdl_directory)
-        print("Exécution réussie !")
+        print("Execution successful!")
         
     except CalledProcessError as e:
         # Step 4: Handle compilation or execution errors and print the error message.
-        print("Erreur lors de la compilation ou de l'exécution :")
+        print("Error during compilation or execution:")
         print(e.stderr.decode())
         
     except Exception as e:
         # Step 5: Handle unexpected errors and display the error message.
-        print("Une erreur inattendue s'est produite :", e)
+        print("An unexpected error occurred:", e)

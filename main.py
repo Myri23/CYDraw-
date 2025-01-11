@@ -41,6 +41,7 @@ def main():
     parser = yacc()
     parsed_data = parser.parse(data, lexer=lexer, tracking=True)
     
+    
 
     if global_state.has_errors:
         sys.exit(1) 
@@ -57,7 +58,10 @@ def main():
     generate_c_code(parsed_data_c)
     compile_and_run_c()
     
+
+
     display_variables() # Checks the state of the variables after execution
+
 
 
 # Entry point for the script execution.

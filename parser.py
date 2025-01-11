@@ -80,12 +80,10 @@ def p_statement_assign_expression_plus(p):
     variable_name = p[1]
     source_variable = p[3]
     increment = p[5] 
-
-
+    
     def assign_expression_p(variable_name=variable_name, source_variable=source_variable, increment=increment):
         variables_number[variable_name] = variables_number.get(source_variable, 0) + increment
-
-    
+        
     p[0] = assign_expression_p
 
 
@@ -210,7 +208,7 @@ def p_statement_assign_expression_dividedby(p):
     else :
  
         def assign_expression(variable_name=variable_name, source_variable=source_variable, increment=increment): 
-            variables_number[variable_name] = variables_number.get(source_variable, 0) / increment
+            variables_number[variable_name] = variables_number.get(source_variable, 0) // increment
 
     
         p[0] = assign_expression
@@ -295,8 +293,7 @@ def p_statement_assign_expression_modulo(p):
 def display_variables():
     for var, val in variables_number.items():
         print(f"{var} = {val}")
-    for var in variables_cursor:
-        print(f"{var}")
+
 
 
 # Function to parse and handle simple variable assignments.
@@ -328,9 +325,9 @@ def p_statement_assign_number(p):
     'statement : id_number equal number_or_id'
     variable_name = p[1]
     value = p[3]
-    variables_number[variable_name] = value
+    variables_number[variable_name] = value 
 
-    def assign_action(variable_name=variable_name, value=value):    
+    def assign_action(variable_name=variable_name, value=value):       
         variable_name=variable_name
         value=value
 
@@ -513,7 +510,7 @@ def p_statement_creation_cursor(p):
 def p_statement_drawing_not_arc(p):
     'statement : draw lp form comma number_or_id rp with id_cursor'
     form = p[3]  # Type of shape (circle, square, line)
-    size = resolve_value(p[5])  # Parameter associated with the shape (radius or size)
+    size = p[5]  # Parameter associated with the shape (radius or size)
     cursor_id = p[8]  # Cursor identifier to use  
  
     def draw_action_not_arc(form=form, size=size, cursor_id=cursor_id):
@@ -919,6 +916,5 @@ def p_statement_while(p):
 
     # Store the function for later execution
     p[0] = execute_while
-
 
 

@@ -114,12 +114,14 @@ def count_lines(data):
     Returns:
     - list: A list of cumulative offsets for each line in the text.
     """
-    line_offsets = [0]
+    line_offsets = []
     current_offset = 0
-    for line in data.splitlines(keepends=True):
+    for line in data.splitlines():
         current_offset += len(line) + 1
         line_offsets.append(current_offset)
     return line_offsets
+
+line_offsets = count_lines(data)
 
 def find_line(line_offsets, lexpos):
     """
@@ -137,7 +139,7 @@ def find_line(line_offsets, lexpos):
             return i + 1
     return len(line_offsets)
 
-line_offsets = count_lines(data)
+
 
 
 # Variable for Error detection
@@ -304,9 +306,9 @@ def t_id_cursor(t):
         if closest_match:
             return t_error(t)
         line_number = find_line(line_offsets, t.lexpos)
-        sys.stderr.write(f"Lexical error on line {line_number}: variable '{t.value}' not recognized.\n")
-        sys.stderr.write(f"Suggestion: You need to assign a value such as a cursor or a number to a variable for it to be valid.\n")
         global_state.has_errors = True
+        sys.stderr.write(f"Lexical error on line {line_number}: variable '{t.value}' not recognized.\n")
+        sys.stderr.write(f"Suggestion: You need to assign a value, such as a cursor or a number, to a variable for it to be valid.\n")
         t.lexer.skip(len(t.value))
 
 # Function to identify number variables, determine the type of other variables, and handle errors for unknown variables.
@@ -366,10 +368,9 @@ def t_id_number(t):
         if closest_match:
             return t_error(t)
         line_number = find_line(line_offsets, t.lexpos)
-        sys.stderr.write(f"Lexical error on line {line_number}: variable '{t.value}' not recognized.\n")
-        sys.stderr.write(f"Suggestion: You need to assign a value such as a cursor or a number to a variable for it to be valid.\n")
-
         global_state.has_errors = True
+        sys.stderr.write(f"Lexical error on line {line_number}: variable '{t.value}' not recognized.\n")
+        sys.stderr.write(f"Suggestion: You need to assign a value, such as a cursor or a number, to a variable for it to be valid.\n")       
         t.lexer.skip(len(t.value))
 
 
@@ -443,11 +444,11 @@ def t_error(t):
 
         t.value = closest_match  # Apply the correction
         t.type = reserved.get(closest_match, 'id')
-
+        global_state.has_errors = True
         return t
     else:
         sys.stderr.write(f"Lexical error on line {line_number}, unrecognized character '{t.value[0]}'. No correction found.\n")
-
+        
     global_state.has_errors = True
     t.lexer.skip(1)
 
