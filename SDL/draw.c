@@ -315,26 +315,28 @@ void drawFilledCircle(SDL_Renderer* renderer, Cursor* cursor, int radius) {
 // Cursor cursor = createCursor(300, 300, {0, 255, 255, 255}, 5, 1);
 // drawArc(renderer, &cursor, 100, 0, 180); // Draws a semi-circle arc with a 100-pixel radius.
 void drawArc(SDL_Renderer* renderer, Cursor* cursor, int radius, int startAngle, int endAngle) {
-    int scaled_radius = (int)(radius * cursor->scale); // Adjust radius based on the cursor's scale.
-    float rad_angle = cursor->angle * M_PI / 180.0;    // Convert the cursor's angle to radians.
+    if(cursor->visible){
+        int scaled_radius = (int)(radius * cursor->scale); // Adjust radius based on the cursor's scale.
+        float rad_angle = cursor->angle * M_PI / 180.0;    // Convert the cursor's angle to radians.
 
-    // Set the color for the arc.
-    SDL_SetRenderDrawColor(renderer, cursor->color.r, cursor->color.g, cursor->color.b, cursor->color.a);
+        // Set the color for the arc.
+        SDL_SetRenderDrawColor(renderer, cursor->color.r, cursor->color.g, cursor->color.b, cursor->color.a);
 
-    // Draw concentric arcs to simulate thickness.
-    for (int offset = 0; offset < cursor->thickness; offset++) {
-        // Iterate through the angles between startAngle and endAngle.
-        for (float angle = startAngle; angle <= endAngle; angle += 0.1) {
-            // Calculate the point on the arc using the parametric equations.
-            int x = (scaled_radius + offset) * cos(angle * M_PI / 180.0);
-            int y = (scaled_radius + offset) * sin(angle * M_PI / 180.0);
+        // Draw concentric arcs to simulate thickness.
+        for (int offset = 0; offset < cursor->thickness; offset++) {
+            // Iterate through the angles between startAngle and endAngle.
+            for (float angle = startAngle; angle <= endAngle; angle += 0.1) {
+                // Calculate the point on the arc using the parametric equations.
+                int x = (scaled_radius + offset) * cos(angle * M_PI / 180.0);
+                int y = (scaled_radius + offset) * sin(angle * M_PI / 180.0);
 
-            // Apply rotation to the point.
-            int rotated_x = (int)(x * cos(rad_angle) - y * sin(rad_angle));
-            int rotated_y = (int)(x * sin(rad_angle) + y * cos(rad_angle));
+                // Apply rotation to the point.
+                int rotated_x = (int)(x * cos(rad_angle) - y * sin(rad_angle));
+                int rotated_y = (int)(x * sin(rad_angle) + y * cos(rad_angle));
 
-            // Draw the rotated point on the renderer.
-            SDL_RenderDrawPoint(renderer, cursor->x + rotated_x, cursor->y + rotated_y);
+                // Draw the rotated point on the renderer.
+                SDL_RenderDrawPoint(renderer, cursor->x + rotated_x, cursor->y + rotated_y);
+            }
         }
     }
 }
