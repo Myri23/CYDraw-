@@ -662,7 +662,7 @@ def run_code():
 
         # Step 3: Execute the lexer script on the saved file.
         result = subprocess.run(
-            ["python", "lexeurmy.py", file_path],  # Command to run the lexer script.
+            ["python", "main.py", file_path],  # Command to run the lexer script.
             capture_output=True, text=True  # Capture stdout and stderr as text.
         )
 

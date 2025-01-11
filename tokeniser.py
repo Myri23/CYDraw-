@@ -156,7 +156,6 @@ reserved = {
     'with': 'with',
     'set': 'set',
     'thickness':'thickness',
-    'color': 'color',
     'if': 'if',
     'then': 'then',
     'else': 'else',

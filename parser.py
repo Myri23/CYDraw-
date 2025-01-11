@@ -513,7 +513,7 @@ def p_statement_creation_cursor(p):
 def p_statement_drawing_not_arc(p):
     'statement : draw lp form comma number_or_id rp with id_cursor'
     form = p[3]  # Type of shape (circle, square, line)
-    size = p[5]  # Parameter associated with the shape (radius or size)
+    size = resolve_value(p[5])  # Parameter associated with the shape (radius or size)
     cursor_id = p[8]  # Cursor identifier to use  
  
     def draw_action_not_arc(form=form, size=size, cursor_id=cursor_id):
@@ -574,7 +574,7 @@ def p_statement_drawing_arc(p):
     size = resolve_value(p[5])
     start_angle = resolve_value(p[7])
     end_angle = resolve_value(p[9])
-    cursor_id = resolve_value(p[12])
+    cursor_id = p[12]
     
     def draw_action_arc():
         instruction_c = f'drawArc(renderer, &{cursor_id}, {size}, {start_angle}, {end_angle});'
