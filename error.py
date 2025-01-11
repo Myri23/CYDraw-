@@ -81,12 +81,12 @@ def p_error(p):
         if p.value == "if" or "if" in line_content:
             sys.stderr.write("Suggested correction: check the complete structure of the condition statement.\n")
             sys.stderr.write("Two possibilities :\n")
-            sys.stderr.write("- 'if <conditon> then <program> end\n")
-            sys.stderr.write("- 'if condition then program else program end'\n")
+            sys.stderr.write("- 'if <conditon> then <program> fi\n")
+            sys.stderr.write("- 'if condition then program else program fi'\n")
         if p.value == "for" or "for" in line_content:
             sys.stderr.write("Suggested correction: check the complete structure of the loop statement.\n")
             sys.stderr.write("Usage :\n")
-            sys.stderr.write("- 'for <condition> in (<start>,<end>) do <program> end'\n")
+            sys.stderr.write("- 'for <condition> in (<start>,<end>) do <program> rof'\n")
         if p.value == "mode" or "mode" in line_content:
             sys.stderr.write("Suggested correction: check the complete structure of the animation mode.\n")
             sys.stderr.write("Usage :\n")
@@ -99,19 +99,19 @@ def p_error(p):
         if p.value == "then" or "then" in line_content:
             sys.stderr.write("Suggested correction: check the complete structure of the condition statement.\n")
             sys.stderr.write("Two possibilities :\n")
-            sys.stderr.write("- 'if <conditon> then <program> end\n")
-            sys.stderr.write("- 'if condition then program else program end'\n")
+            sys.stderr.write("- 'if <conditon> then <program> fi\n")
+            sys.stderr.write("- 'if condition then program else program fi'\n")
         if p.value == "else" or "else" in line_content:
             sys.stderr.write("Suggested correction: check the complete structure of the condition statement.\n")
             sys.stderr.write("Usage:\n")
-            sys.stderr.write("- 'if condition then program else program end'\n")
+            sys.stderr.write("- 'if condition then program else program fi'\n")
         if p.value == "while" or "while" in line_content:
             sys.stderr.write("Suggested correction: check the complete structure of the 'while' statement.\n")
             sys.stderr.write("Usage:\n")
             sys.stderr.write("- 'while <condition> do <program> end'.\n")
         if p.value == "do" or "do" in line_content:
             sys.stderr.write("Suggested correction: ensure 'do' is part of a complete 'for' or 'while' statement.\n")
-            sys.stderr.write("- 'for <condition> in (<start>,<end>) do <program> end'\n")
+            sys.stderr.write("- 'for <condition> in (<start>,<end>) do <program> rof'\n")
             sys.stderr.write("Or:\n")
             sys.stderr.write("- 'while <condition> do <program> end'.\n")
         if p.value == "set" or "set" in line_content:
@@ -129,17 +129,20 @@ def p_error(p):
             sys.stderr.write("Or:\n")
             sys.stderr.write("- '<id_cursor> equal create cursor at (<number or id_number>, <number or id_number>) with (<number or id_number>, <number or id_number>, <number or id_number>, <number or id_number>, <number or id_number>, <number or id_number>)'.\n")
         if p.value == "end" or "end" in line_content:
-            sys.stderr.write("Suggested correction: ensure 'end' is part of a complete 'for', 'if' or 'while' statement.\n")
+            sys.stderr.write("Suggested correction: ensure 'end' is part of a complete 'while' statement.\n")
             sys.stderr.write("Usage:\n")
-            sys.stderr.write("- 'for <condition> in (<start>,<end>) do <program> end'\n")
-            sys.stderr.write("Or:\n")
-            sys.stderr.write("- 'if <conditon> then <program> end\n") 
-            sys.stderr.write("- 'if condition then program else program end'\n")
-            sys.stderr.write("Or:\n")
             sys.stderr.write("- 'while <condition> do <program> end'.\n")
         if p.value == "in" or "in" in line_content:
             sys.stderr.write("Suggested correction: ensure 'in' is part of a complete 'for' statement.\n")
-            sys.stderr.write("- 'for <condition> in (<start>,<end>) do <program> end'\n")
+            sys.stderr.write("- 'for <condition> in (<start>,<end>) do <program> rof'\n")
+        if p.value == "rof" or "rof" in line_content:
+            sys.stderr.write("Suggested correction: ensure 'rof' is part of a complete 'for' statement.\n")
+            sys.stderr.write("- 'for <condition> in (<start>,<end>) do <program> rof'\n") 
+        if p.value == "fi" or "fi" in line_content:
+            sys.stderr.write("Suggested correction: ensure 'fi' is part of a complete 'if' statement.\n")
+            sys.stderr.write("Two possibilities :\n")
+            sys.stderr.write("- 'if <conditon> then <program> fi\n")
+            sys.stderr.write("- 'if condition then program else program fi'\n") 
     else :
         sys.stderr.write("Syntax error: unexpected end of file\n")
     global_state.has_errors = True
@@ -490,7 +493,7 @@ def p_statement_rotation_error(p):
 # Example Usage:
 # For an invalid command like `for id_number in`, this function outputs:
 # Syntax error on line 5: missing '(' after 'in'.
-# Suggested correction: 'for <identifier> in (<start>, <end>) do <instruction> end'.
+# Suggested correction: 'for <identifier> in (<start>, <end>) do <instruction> rof'.
 
 def p_statement_for_error(p):
     '''statement : for
@@ -503,7 +506,6 @@ def p_statement_for_error(p):
                  | for id_number in lp error
                  | for id_number in id_number
                  '''
-   
     
     try:
         line_number = find_line(line_offsets, p.lexpos(1))
@@ -511,7 +513,7 @@ def p_statement_for_error(p):
         # Fallback if lexpos is not available
         line_number = "unknown"
 
-    base_correction = "for <identifier> in (<start>, <end>) do <instruction> end"
+    base_correction = "for <identifier> in (<start>, <end>) do <instruction> rof"
     
     if len(p) == 2 and p[1] == 'for':
         sys.stderr.write(f"Syntax error on line {line_number}: missing identifier after 'for'.\n")

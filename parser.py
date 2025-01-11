@@ -723,8 +723,8 @@ def p_condition(p):
 # Function to parse and handle conditional statements.
 
 # This function processes conditional statements of the form:
-# `if <condition> then <program> end` or 
-# `if <condition> then <program> else <program> end`.
+# `if <condition> then <program> fi` or 
+# `if <condition> then <program> else <program> fi`.
 # It evaluates the condition and executes the appropriate block of statements during runtime.
 
 # Parameters:
@@ -753,13 +753,13 @@ def p_condition(p):
 #     y = y + 1
 # else
 #     z = z - 1
-# end
+# fi
 # ```
 # Parsing generates a function that evaluates `x < 10` and executes the appropriate block.
 
 def p_statement_condition(p):
-    '''statement : if condition then program end
-                 | if condition then program else program end'''
+    '''statement : if condition then program fi
+                 | if condition then program else program fi'''
     
     condition_func = p[2]  # Retrieve the condition function
 
@@ -794,7 +794,7 @@ def p_statement_condition(p):
 # Function to parse and handle 'for' loop statements.
 
 # This function processes statements of the form:
-# `for <variable> in (<start>, <end>) do <program> end`.
+# `for <variable> in (<start>, <end>) do <program> rof`.
 # It resolves the start and end values, executes the loop body for each iteration,
 # and dynamically creates a function to handle the loop execution during runtime.
 
@@ -824,7 +824,7 @@ def p_statement_condition(p):
 # ```
 # for i in (1, 5) do
 #     print(i)
-# end
+# rof
 # ```
 # Parsing generates a function that executes the loop and prints:
 # ```
@@ -836,7 +836,7 @@ def p_statement_condition(p):
 # ```
 
 def p_statement_loop(p):
-    'statement : for id_number in lp number_or_id comma number_or_id rp do program end'
+    'statement : for id_number in lp number_or_id comma number_or_id rp do program rof'
     loop_var = p[2]
     start, end, body = resolve_value(p[5]), resolve_value(p[7]), p[10]
 
