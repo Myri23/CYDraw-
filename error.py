@@ -48,6 +48,12 @@ def p_error(p):
             sys.stderr.write("Suggested correction: check the complete structure of the 'move' statement.\n")
             sys.stderr.write("Usage :\n")
             sys.stderr.write("- 'move <id_cursor> by <number>'.\n")
+        if p.value == "by" or "by" in line_content:
+            sys.stderr.write("Suggested correction: ensure 'by' is part of a complete 'move' or 'rotate' statement.\n")
+            sys.stderr.write("Usage :\n")
+            sys.stderr.write("- 'move <id_cursor> by <number>'.\n")
+            sys.stderr.write("Or :\n")
+            sys.stderr.write("- 'rotate <id_cursor> by <angle>'.\n")
         if p.value == "draw" or "draw" in line_content:
             sys.stderr.write("Suggested correction: check the complete structure of the 'draw' statement.\n")
             sys.stderr.write("Usage :\n")
@@ -56,9 +62,22 @@ def p_error(p):
             sys.stderr.write("Warning, 'arc' has a different usage.: \n")
             sys.stderr.write("- 'draw (arc, <size>, <start angle>, <end angle>) with <cursor>'.\n")
         if p.value == "cursor" or "cursor" in line_content:
-            sys.stderr.write("Suggested correction: check the complete structure of the 'draw' statement.\n")
+            sys.stderr.write("Suggested correction: check the complete structure of the 'create cursor' statement.\n")
             sys.stderr.write("Usage :\n")
             sys.stderr.write("- '<id_cursor> equal create cursor at (<number or id_number>, <number or id_number>) with (<number or id_number>, <number or id_number>, <number or id_number>, <number or id_number>, <number or id_number>, <number or id_number>)'.\n")
+        if p.value == "create" or "create" in line_content:
+            sys.stderr.write("Suggested correction: check the complete structure of the 'create cursor' statement.\n")
+            sys.stderr.write("Usage :\n")
+            sys.stderr.write("- '<id_cursor> equal create cursor at (<number or id_number>, <number or id_number>) with (<number or id_number>, <number or id_number>, <number or id_number>, <number or id_number>, <number or id_number>, <number or id_number>)'.\n")
+        if p.value == "with" or "with" in line_content:
+            sys.stderr.write("Suggested correction: check the complete structure of the 'create cursor' or 'draw' statement.\n")
+            sys.stderr.write("Usage :\n")
+            sys.stderr.write("- '<id_cursor> equal create cursor at (<number or id_number>, <number or id_number>) with (<number or id_number>, <number or id_number>, <number or id_number>, <number or id_number>, <number or id_number>, <number or id_number>)'.\n")
+            sys.stderr.write("Or :\n")
+            sys.stderr.write("- 'draw (<form>, <size>) with <cursor>'.\n")
+            sys.stderr.write("Forms: circle | square | line | filledcircle | filledsquare | arc.\n")
+            sys.stderr.write("Warning, 'arc' has a different usage.: \n")
+            sys.stderr.write("- 'draw (arc, <size>, <start angle>, <end angle>) with <cursor>'.\n")
         if p.value == "if" or "if" in line_content:
             sys.stderr.write("Suggested correction: check the complete structure of the condition statement.\n")
             sys.stderr.write("Two possibilities :\n")
@@ -67,7 +86,7 @@ def p_error(p):
         if p.value == "for" or "for" in line_content:
             sys.stderr.write("Suggested correction: check the complete structure of the loop statement.\n")
             sys.stderr.write("Usage :\n")
-            sys.stderr.write("- 'for <condition< in (<start>,<end>) do <program> end'\n")
+            sys.stderr.write("- 'for <condition> in (<start>,<end>) do <program> end'\n")
         if p.value == "mode" or "mode" in line_content:
             sys.stderr.write("Suggested correction: check the complete structure of the animation mode.\n")
             sys.stderr.write("Usage :\n")
@@ -87,12 +106,12 @@ def p_error(p):
             sys.stderr.write("Usage:\n")
             sys.stderr.write("- 'if condition then program else program end'\n")
         if p.value == "while" or "while" in line_content:
-            sys.stderr.write("Suggested correction: ensure 'while' is part of a complete 'while' statement.\n")
+            sys.stderr.write("Suggested correction: check the complete structure of the 'while' statement.\n")
             sys.stderr.write("Usage:\n")
             sys.stderr.write("- 'while <condition> do <program> end'.\n")
         if p.value == "do" or "do" in line_content:
-            sys.stderr.write("Did you mean:\n")
-            sys.stderr.write("- 'for <condition< in (<start>,<end>) do <program> end'\n")
+            sys.stderr.write("Suggested correction: ensure 'do' is part of a complete 'for' or 'while' statement.\n")
+            sys.stderr.write("- 'for <condition> in (<start>,<end>) do <program> end'\n")
             sys.stderr.write("Or:\n")
             sys.stderr.write("- 'while <condition> do <program> end'.\n")
         if p.value == "set" or "set" in line_content:
@@ -104,18 +123,23 @@ def p_error(p):
             sys.stderr.write("Usage:\n")
             sys.stderr.write("set <cursor> thickness at <number or id_number>")
         if p.value == "at" or "at" in line_content:
-            sys.stderr.write("Suggested correction: ensure 'at' is part of a complete 'set thickness' statement.\n")
+            sys.stderr.write("Suggested correction: ensure 'at' is part of a complete 'set thickness' or 'create cursor' statement.\n")
             sys.stderr.write("Usage:\n")
             sys.stderr.write("set <cursor> thickness at <number or id_number>")
+            sys.stderr.write("Or:\n")
+            sys.stderr.write("- '<id_cursor> equal create cursor at (<number or id_number>, <number or id_number>) with (<number or id_number>, <number or id_number>, <number or id_number>, <number or id_number>, <number or id_number>, <number or id_number>)'.\n")
         if p.value == "end" or "end" in line_content:
             sys.stderr.write("Suggested correction: ensure 'end' is part of a complete 'for', 'if' or 'while' statement.\n")
             sys.stderr.write("Usage:\n")
-            sys.stderr.write("- 'for <condition< in (<start>,<end>) do <program> end'\n")
+            sys.stderr.write("- 'for <condition> in (<start>,<end>) do <program> end'\n")
             sys.stderr.write("Or:\n")
             sys.stderr.write("- 'if <conditon> then <program> end\n") 
             sys.stderr.write("- 'if condition then program else program end'\n")
             sys.stderr.write("Or:\n")
             sys.stderr.write("- 'while <condition> do <program> end'.\n")
+        if p.value == "in" or "in" in line_content:
+            sys.stderr.write("Suggested correction: ensure 'in' is part of a complete 'for' statement.\n")
+            sys.stderr.write("- 'for <condition> in (<start>,<end>) do <program> end'\n")
     else :
         sys.stderr.write("Syntax error: unexpected end of file\n")
     global_state.has_errors = True
