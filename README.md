@@ -164,81 +164,82 @@ To ensure all required libraries have been installed correctly, use the followin
 ### GUI Mode 
 1. Activate the virtual environment in the project's folder with the command: source myenv/bin/activate 
 2. Run the GUI:
-   ```python3 ide.py
+   ```bash
+   python3 ide.py
    ```
 3. Use the GUI to create or open a `dpp` file.
 4. Edit and execute your script directly in the interface.
 
 ### Grammar
 
-Assign expression plus, Usage: "<id_number> = <id_number> + <number>" 
+Assign expression plus, Usage: <id_number> = <id_number> + <number> <br>
 Assign expression plus, Example: x = x + 1 
 
-Assign expression minus, Usage: "<id_number> = <id_number> - <number>"
+Assign expression minus, Usage: <id_number> = <id_number> - <number> <br>
 Assign expression minus, Example: x = x - 1 
 
-Assign expression times, Usage: "<id_number> = <id_number> * <number>" 
+Assign expression times, Usage: <id_number> = <id_number> * <number> <br>
 Assign expression times, Example: x = x * 1
 
-Assign expression dividedby, Usage: "<id_number> = <id_number> / <number>" 
+Assign expression dividedby, Usage: <id_number> = <id_number> / <number> <br>
 Assign expression dividedby, Example: x = x / 1  
 
-Assign expression modulo, Usage: "<id_number> = <id_number> % <number>" 
+Assign expression modulo, Usage: <id_number> = <id_number> % <number> <br>
 Assign expression modulo, Example: x = x % 1  
 
-Assign a number to a variable, Usage: "<id_number> equal <number_or_id_number>"
+Assign a number to a variable, Usage: <id_number> equal <number_or_id_number> <br>
 Assign a number to a variable, Example: x = 10 Example: x = y
 
-Create a cursor, Usage: "<id_cursor> equal create cursor at (<number_or_id_number>, <number_or_id_number>) with (<number_or_id_number>, <number_or_id_number>, <number_or_id_number>, <number_or_id_number>, <number_or_id_number>, <number_or_id_number>)"
-Create a cursor, Explanation: id_cursor = create cursor at (x, y) with (r, g, b, a, thickness, visibility)
+Create a cursor, Usage: <id_cursor> equal create cursor at (<number_or_id_number>, <number_or_id_number>) with (<number_or_id_number>, <number_or_id_number>, <number_or_id_number>, <number_or_id_number>, <number_or_id_number>, <number_or_id_number>) <br>
+Create a cursor, Explanation: id_cursor = create cursor at (x, y) with (r, g, b, a, thickness, visibility) <br>
 Create a cursor, Example: cursor4 = create cursor at (200, 450) with (255, 0, 0, 255, 1, 1) 
 
-Set a new thickness to a cursor, Usage: "set <id_cursor> thickness at <number_or_id_number>"
+Set a new thickness to a cursor, Usage: set <id_cursor> thickness at <number_or_id_number> <br>
 Set a new thickness to a cursor, Example: set c thickness at 20
 
-If condition, Usage: "if <condition> then <program> fi" or "if <condition> then <program> else <program> fi"
-If condition, Example:"if x < 20 then draw (circle, 50) with cursor4 fi" or "if i = 10 then draw (circle, 50) with cursor4 else draw (square, 50) with cursor2 fi"
+If condition, Usage: if <condition> then <program> fi or if <condition> then <program> else <program> fi <br>
+If condition, Example:if x < 20 then draw (circle, 50) with cursor4 fi or if i = 10 then draw (circle, 50) with cursor4 else draw (square, 50) with cursor2 fi <br>
 
-For loop, Usage: "for <id_cursor> in (start, end) do <program> rof"
+For loop, Usage: for <id_cursor> in (start, end) do <program> rof <br>
 For loop, Example : for i in (0, 20) do draw (square, 50) with cursor2 rof
 
-While loop Usage: "while <condition> do <program> end"
+While loop Usage: while <condition> do <program> end <br>
 While loop Example : while x > 40 do draw (arc, x, 0, 180) with cursor2 end
 
-Rotation, Usage: rotate <id_cursor> by <number_or_id>
+Rotation, Usage: rotate <id_cursor> by <number_or_id> <br>
 Rotation, Example: rotate cursor1 by 20
 
-Movement, Usage: move <id_cursor> by <number_or_id>
+Movement, Usage: move <id_cursor> by <number_or_id> <br>
 Movement, Example: move cursor1 by 40
 
 
-Forms (without arcs), Usage: draw (<form>, <number_or_id>) with <id_cursor>
-Forms (without arcs), Explanation: draw (form, size) with <id_cursor>
+Forms (without arcs), Usage: draw (<form>, <number_or_id>) with <id_cursor> <br>
+Forms (without arcs), Explanation: draw (form, size) with <id_cursor> <br>
 Forms (without arcs), Example: draw (circle, 50) with cursor7
 
-Form arc, Usage: draw (arc, <number_or_id>, <number_or_id>, <number_or_id>) with <id_cursor>
-Form arc, Explanation: draw (arc, size, start_angle, end_angle) with <id_cursor>
+Form arc, Usage: draw (arc, <number_or_id>, <number_or_id>, <number_or_id>) with <id_cursor> <br>
+Form arc, Explanation: draw (arc, size, start_angle, end_angle) with <id_cursor> <br>
 Form arc, Explanation: draw (arc, 50, 30, 120) with cursor1
 
 - Available forms : `circle`, `square`, `line`, `filledcircle`, `filledsquare`, `arc`.
 
 
-Selecting an animation mode, Usage : mode <animation>
-Selecting an animation mode, Example : mode disco
+Selecting an animation mode, Usage : mode <animation> <br>
+Selecting an animation mode, Example : mode disco <br>
 Available animations : `disco`, `snail`, `bounce`.
 
 
-- A simple condition can be used to perform comparisons. Those are the available conditions :
-<number_or_id> < <number_or_id> : less than
-<number_or_id> > <number_or_id> : greater than
-<number_or_id> = <number_or_id> : equal to
+- A simple condition can be used to perform comparisons. Those are the available conditions : <br>
+<number_or_id> < <number_or_id> : less than <br>
+<number_or_id> > <number_or_id> : greater than <br>
+<number_or_id> = <number_or_id> : equal to <br>
 
-- Add a comment with '#' :
-Example: #This is a comment.
-The comment will automatically ignore the rest of the line after #
+- Add a comment with '#' : <br>
+Example: #This is a comment. <br>
+The comment will automatically ignore the rest of the line after # <br>
 
 ### Examples
-```
+```dpp
 # Create a red cursor
 cursor1 = create cursor at (50, 50) with (255, 0, 0, 255, 0, 0, 5, 1)
 
