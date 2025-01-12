@@ -120,7 +120,7 @@ Update the system packages to ensure you have the latest version :
 A virtual environment isolates the project's dependencies to prevent conflicts with other Python projects.
 Install the Python module to create virtual environments :
    ```bash
-  sudo apt install python3.12-venv
+   sudo apt install python3.12-venv
    ```
 Create a virtual environment dedicated to the Draw++ project :
  ```bash
@@ -164,7 +164,7 @@ To ensure all required libraries have been installed correctly, use the followin
 ### GUI Mode 
 1. Activate the virtual environment in the project's folder with the command: source myenv/bin/activate 
 2. Run the GUI:
-   ```bash
+```bash
    python3 ide.py
    ```
 3. Use the GUI to create or open a `dpp` file.
