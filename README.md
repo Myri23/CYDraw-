@@ -280,3 +280,10 @@ mode snail
 - Customtkinter for the GUI.
 - Tkinter for the GUI and basic widgets.
 
+## Authors
+- Abdellah EL HARSAL
+- Ayman OUGUERD
+- Eleonore GEORGEL
+- Inès RIBAR
+- Myriam SAADI
+
