@@ -707,7 +707,7 @@ def run_code():
             errors = []  # List to store line numbers with errors.
             for line in result.stderr.splitlines():
                 # Extract line numbers using a regex.
-                match = re.search(r"ligne (\d+)", line, re.IGNORECASE)
+                match = re.search(r"line (\d+)", line, re.IGNORECASE)
                 if match:
                     errors.append(int(match.group(1)))  # Add the line number to the list.
 
